@@ -75,11 +75,13 @@ def place_x():
             break
 
     while True:
-        Mydata['logisType'] = input('\n\n [-choose logistics type-]\n(1) In the Province\n(2) Out of the Province\n(3) Pick up (In-store pickup)\nSelect : ')
+        Mydata['logisType'] = input('\n\n [-choose logistics type-]\n(1) In the Province [+30$]\n(2) Out of the Province [+100$]\n(3) Pick up (In-store pickup)\nSelect : ')
         if Mydata['logisType'] in ['1', '2', '3']:
             break
         else:
             print('Error Please select valid data')
+            time.sleep(0.5)
+            console_clear()
 
     if Mydata['logisType'] == '1':
         while True:
@@ -90,6 +92,8 @@ def place_x():
                     break
                 else:
                     print('choose the correct value!')
+                    time.sleep(0.5)
+                    console_clear()
 
     elif Mydata['logisType'] == '2':
         while True:
@@ -100,7 +104,8 @@ def place_x():
                     break
                 else:
                     print('choose the correct value!')
-
+                    time.sleep(0.5)
+                    console_clear()
     elif Mydata['logisType'] == '3':
         while True:
             Mydata['weight'] = input('\n\n1 kg : 150$\n2 kg : 299$\n3 kg : 445$\n4 Kg : 599$\n5 Kg : 745$\n6 Kg : 899$\n7 Kg : 1040$\n8 Kg : 1120$\n10 Kg : 1399$\nyour weight (kg.) (no logistic charged): ')
@@ -110,6 +115,8 @@ def place_x():
                     break
                 else:
                     print('choose the correct value!')
+                    time.sleep(0.5)
+                    console_clear()
 
     def calcu_price():
         if Mydata['IsMember']:
@@ -122,7 +129,7 @@ def place_x():
 
     print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
     while True:
-        Mydata['Money'] = input('\nPay your money: ')
+        Mydata['Money'] = input(f'\nPrice total ({CalculatedPrice})\nPay your money: ')
         if Mydata['Money'].isdigit():
             if int(Mydata['Money']) >= CalculatedPrice:
                 global Change
@@ -132,9 +139,10 @@ def place_x():
                 break
             else:
                 print('no enough money')
-                console_clear()
+                time.sleep(2)
                 print('[Info] Returning to information page...')
                 time.sleep(2)
+                console_clear()
                 return False
 
     return True
@@ -143,8 +151,9 @@ def confirm_page():
     while True:
         Confirm = input('Are you sure to confirm? (y/n/cancel): ')
         if Confirm.lower() in ['yes', 'y']:
-            print('[Info] Order summarize..')
             console_clear()
+            print('[Info] Order summarizing..')
+            time.sleep(2)
             print('done.')
             time.sleep(2)
             print('loading data..')
@@ -162,6 +171,7 @@ def confirm_page():
             print('---------- Order Info -----------')
             print(f'Raw price: {Pricin}$')
             print(f'Calculated price: {CalculatedPrice}{f"\nDeducted Price: {deductedPrice}$" if Mydata["IsMember"] else ""}')
+            print(f'Cash Recived: {Mydata['Money']}')
             print(f'Cash change: {Change}')
             return 'done'
         elif Confirm.lower() in ['no', 'n']:
@@ -191,27 +201,4 @@ while True:
     elif action == 'editInfo':
         print('\n[Info] User information updated.')
     elif action == 'done':
-        # ShowData()
         break
-
-
-# def ShowData():
-        # console_clear()
-        # print('done.')
-        # time.sleep(2)
-        # print('loading data..')
-        # time.sleep(1)
-        # print('all data has been loaded..')
-        # time.sleep(1)
-        # console_clear()
-        # print(' [User information]')
-        # print(f'Name: {Mydata["Identifier"]["Name"]}')
-        # print(f'Address: {Mydata["Identifier"]["Address"]}')
-        # print(f'Number: {Mydata["Identifier"]["Number"]}')
-        # print(f'Has MemberShip: {"yes" if Mydata["IsMember"] else "not"}')
-        # print(f'Price: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
-        # print('---------------------------------')
-        # print('---------- Order Info -----------')
-        # print(f'Raw price: {Pricin}$')
-        # print(f'Calculated price: {CalculatedPrice}{f"\nDeducted Price: {deductedPrice}$" if Mydata["IsMember"] else ""}')
-        # print(f'Cash change: {Change}')
