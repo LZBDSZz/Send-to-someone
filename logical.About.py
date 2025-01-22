@@ -1,5 +1,5 @@
-import os
-import time
+import os     ### -- import os   (สั่งการบน os ต่างๆ)
+import time   ### -- import time (Delayer)
 Member = [    ### -- เก็บข้อมูลเบอร์โทรผู้ใช้ที่เป็นสมาชิก
     '0888888888',
     '01234',
