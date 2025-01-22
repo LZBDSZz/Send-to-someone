@@ -1,29 +1,29 @@
 import os
 import time
-Member = [
+Member = [    ### -- เก็บข้อมูลเบอร์โทรผู้ใช้ที่เป็นสมาชิก
     '0888888888',
     '01234',
     '19132',
     '0629158938'
 ]
 
-Mydata = {}
-Pricin = None
-CalculatedPrice = None
-deductedPrice = None
+Mydata = {}              ### -- เก็๋บข้อมูลส่วนตัวของผู้ใช้ [ที่อยู่, เบอร์, ชื่อ, สถานะการเป็นสมาชิก, order ที่ผู้ใช้เลือก, จำนวนเงินของผู้ใช้งาน]
+Pricin = None            ### -- ราคาสดของ order (ราคาที่ยังไม่คำนวนเปอร์เซ็น)
+CalculatedPrice = None   ### -- ราคาที่คำนวนแล้วจาก calcu_price()
+deductedPrice = None     ### -- ส่วนลดที่ได้หลังจากคำนวนเปอร์เซ็นแล้ว
 
-def console_clear():
+def console_clear():     ### -- เคลียร์ console
     if os.system("clear") != 0:
         if os.system("cls") != 0:
             for _ in range(25):
                 print("\n\n")
 
-def place_x():
+def place_x():    ### -- main func
     print('loading data')
     global Pricin, CalculatedPrice, deductedPrice
     time.sleep(2)
     console_clear()
-    Price = {
+    Price = {        ### เก็บข้อมูลสินค้า
         'AtStore': {
             '1': 150,
             '2': 299,
@@ -61,20 +61,20 @@ def place_x():
 
     Mydata['Identifier'] = {}
 
-    Mydata['Identifier']['Name'] = input('your Name: ')
+    Mydata['Identifier']['Name'] = input('your Name: ')          ### -- เก็บข้อมูล ชื่อ, ที่อยู่, เบอร์ ของผู้ใช้
     Mydata['Identifier']['Address'] = input('your Address: ')
     Mydata['Identifier']['Number'] = input('your Number: ')
 
-    while not Mydata['Identifier']['Number'].isdigit():
+    while not Mydata['Identifier']['Number'].isdigit():        ### -- loop เช็คว่า input ที่กรอกมาเป็นเลขหรือไม่ ถ้าไม่ใช่ number จะทำการให้กรอกใหม่
         Mydata['Identifier']['Number'] = input('your (Number): ')
 
-    Mydata['IsMember'] = False
-    for id in Member:
+    Mydata['IsMember'] = False                            ### -- Default Value
+    for id in Member:                                     ### -- for loop เช็คข้อมูลเบอร์ผู้ใช้ หากตรงกับข้อมูลใน Member ก็จะเป็นสมาชิก
         if id == Mydata['Identifier']['Number']:
             Mydata['IsMember'] = True
             break
 
-    while True:
+    while True:    ### -- เลือกประเภทการขนส่ง
         Mydata['logisType'] = input('\n\n [-choose logistics type-]\n(1) In the Province [+30$]\n(2) Out of the Province [+100$]\n(3) Pick up (In-store pickup)\nSelect : ')
         if Mydata['logisType'] in ['1', '2', '3']:
             break
@@ -118,7 +118,7 @@ def place_x():
                     time.sleep(0.5)
                     console_clear()
 
-    def calcu_price():
+    def calcu_price():        ### -- คำนวนราคาส่วนลดของ ผู้ใช้ที่เป็นสมาชิก (return ราคาที่ได้รับส่นลดแล้ว, จำนวนราคาที่ลดไป)
         if Mydata['IsMember']:
             arg1 = Pricin
             arg2 = Pricin * (100 - 15) / 100
@@ -128,7 +128,7 @@ def place_x():
     CalculatedPrice, deductedPrice = calcu_price()
 
     print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
-    while True:
+    while True:        ### -- กรอกเงินของผู้ใช้ (ถ้าเงินไม่พอกับที่ต้องจ่ายจะทำการให้กรอกรายการทั้งหมดใหม่)
         Mydata['Money'] = input(f'\nPrice total ({CalculatedPrice})\nPay your money: ')
         if Mydata['Money'].isdigit():
             if int(Mydata['Money']) >= CalculatedPrice:
@@ -147,7 +147,7 @@ def place_x():
 
     return True
 
-def confirm_page():
+def confirm_page():    ### -- คอนเฟิร์ม ออเดอร์ (y = ยืนยัน, n = ไม่ยืนยัน (กรอกข้อมูลทั้งหมดใหม่), c-cancel, ยกเลิก order และจบการทำงาน)
     while True:
         Confirm = input('Are you sure to confirm? (y/n/cancel): ')
         if Confirm.lower() in ['yes', 'y']:
@@ -188,12 +188,13 @@ def confirm_page():
         else:
             print('Invalid input. Please type y/n/cancel.')
 
-while not place_x():
+while not place_x():    ### -- เช็คว่าหาก มีค่า return เป็น false จาก place_x() จะทำการเรียกใช้ฟังก์ชัน place_x() ใหม่
     pass
 
+    ### -- แสดงผลลัพธ์ ข้อมูลของผู้ใช้, ข้อมูล order ที่เลือก
 print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
 
-while True:
+while True:    ### -- เรียกใช้ฟังก์ชั่นหน้ายืนยันและ เช็คค่าจาก ฟังก์ชันที่ retrun มา 
     action = confirm_page()
     if action == 'cancel':
         print('[Info] Your order has been canceled!')
