@@ -75,7 +75,7 @@ def place_x():
             break
 
     while True:
-        Mydata['logisType'] = input('\n\n [-choose logistics type-]\n(1) In the Province [+30$]\n(2) Out of the Province [+100$]\n(3) Pick up (In-store pickup)\nSelect : ')
+        Mydata['logisType'] = input('\n\n [-choose logistics type-]\n(1) In the Province [+30฿]\n(2) Out of the Province [+100฿]\n(3) Pick up (In-store pickup)\nSelect : ')
         if Mydata['logisType'] in ['1', '2', '3']:
             break
         else:
@@ -85,7 +85,7 @@ def place_x():
 
     if Mydata['logisType'] == '1':
         while True:
-            Mydata['weight'] = input('\n\n1 kg : 180$\n2 kg : 329$\n3 kg : 475$\n4 Kg : 629$\n5 Kg : 775$\n6 Kg : 929$\n7 Kg : 1070$\n8 Kg : 1150$\n10 Kg : 1429$\nyour weight (kg.) (+30$ logistic charged): ')
+            Mydata['weight'] = input('\n\n1 kg : 180฿\n2 kg : 329฿\n3 kg : 475฿\n4 Kg : 629฿\n5 Kg : 775฿\n6 Kg : 929฿\n7 Kg : 1070฿\n8 Kg : 1150฿\n10 Kg : 1429฿\nyour weight (kg.) (+30฿ logistic charged): ')
             if Mydata['weight'].isdigit():
                 if Mydata['weight'] in Price['ofProvince']:
                     Pricin = Price['ofProvince'][Mydata['weight']]
@@ -97,7 +97,7 @@ def place_x():
 
     elif Mydata['logisType'] == '2':
         while True:
-            Mydata['weight'] = input('\n\n1 kg : 250$\n2 kg : 399$\n3 kg : 545$\n4 Kg : 699$\n5 Kg : 845$\n6 Kg : 999$\n7 Kg : 1140$\n8 Kg : 1220$\n10 Kg : 1499$\nyour weight (kg.) (+100$ logistic charged): ')
+            Mydata['weight'] = input('\n\n1 kg : 250฿\n2 kg : 399฿\n3 kg : 545฿\n4 Kg : 699฿\n5 Kg : 845฿\n6 Kg : 999฿\n7 Kg : 1140฿\n8 Kg : 1220฿\n10 Kg : 1499฿\nyour weight (kg.) (+100฿ logistic charged): ')
             if Mydata['weight'].isdigit():
                 if Mydata['weight'] in Price['otherProvinces']:
                     Pricin = Price['otherProvinces'][Mydata['weight']]
@@ -108,7 +108,7 @@ def place_x():
                     console_clear()
     elif Mydata['logisType'] == '3':
         while True:
-            Mydata['weight'] = input('\n\n1 kg : 150$\n2 kg : 299$\n3 kg : 445$\n4 Kg : 599$\n5 Kg : 745$\n6 Kg : 899$\n7 Kg : 1040$\n8 Kg : 1120$\n10 Kg : 1399$\nyour weight (kg.) (no logistic charged): ')
+            Mydata['weight'] = input('\n\n1 kg : 150฿\n2 kg : 299฿\n3 kg : 445฿\n4 Kg : 599฿\n5 Kg : 745฿\n6 Kg : 899฿\n7 Kg : 1040฿\n8 Kg : 1120฿\n10 Kg : 1399฿\nyour weight (kg.) (no logistic charged): ')
             if Mydata['weight'].isdigit():
                 if Mydata['weight'] in Price['AtStore']:
                     Pricin = Price['AtStore'][Mydata['weight']]
@@ -127,7 +127,7 @@ def place_x():
 
     CalculatedPrice, deductedPrice = calcu_price()
 
-    print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
+    print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}฿" if Mydata["IsMember"] else ""}')
     while True:
         Mydata['Money'] = input(f'\nPrice total ({CalculatedPrice})\nPay your money: ')
         if Mydata['Money'].isdigit():
@@ -166,11 +166,11 @@ def confirm_page():
             print(f'Address: {Mydata["Identifier"]["Address"]}')
             print(f'Number: {Mydata["Identifier"]["Number"]}')
             print(f'Has MemberShip: {"yes" if Mydata["IsMember"] else "not"}')
-            print(f'Price: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
+            print(f'Price: {CalculatedPrice}\n{f"Discount: {deductedPrice}฿" if Mydata["IsMember"] else ""}')
             print('---------------------------------')
             print('---------- Order Info -----------')
-            print(f'Raw price: {Pricin}$')
-            print(f'Calculated price: {CalculatedPrice}{f"\nDeducted Price: {deductedPrice}$" if Mydata["IsMember"] else ""}')
+            print(f'Raw price: {Pricin}฿')
+            print(f'Calculated price: {CalculatedPrice}{f"\nDeducted Price: {deductedPrice}฿" if Mydata["IsMember"] else ""}')
             print(f'Cash Recived: {Mydata['Money']}')
             print(f'Cash change: {Change}')
             return 'done'
@@ -191,7 +191,7 @@ def confirm_page():
 while not place_x():
     pass
 
-print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}$" if Mydata["IsMember"] else ""}')
+print(f'\n\nName: {Mydata["Identifier"]["Name"]}\nAddress: {Mydata["Identifier"]["Address"]}\nNumber: {Mydata["Identifier"]["Number"]}\nHas MemberShip: {"yes" if Mydata["IsMember"] else "not"}\nPrice: {CalculatedPrice}\n{f"Discount: {deductedPrice}฿" if Mydata["IsMember"] else ""}')
 
 while True:
     action = confirm_page()
